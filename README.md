@@ -1,52 +1,180 @@
-############### WRANGLE ##############
-
-Normalize column names
-
-Check for and handle nulls
-
-Check for and handle duplicates
-
-Drop unnecessary or highly related columns
 
 
-############## EXPLORE ###############
+# Predicting Superstore Revenue
+
+by Scott Mattes
+
+***
+[[Project Description](#description)]
+[[Project Planning](#goals)]
+[[Hypotheses](#hypotheses)]
+[[Deliverables](#deliverables)]
+[[Key Findings](#findings)]
+[[The Plan](#plan)]
+[[Data Dictionary](#dictionary)]
+[[Data Acquisition and Prep](#wrangle)]
+[[Data Exploration](#exploration)]
+[[Statistical Analysis](#stats)]
+[[Modeling](#model)]
+[[Steps to Reproduce](#reproduction)]
+[[Takeaways and Conclusions](#conclusions)]
+[[Recommendations](#recommendations)]
+[[Next Steps](#next_steps)]
+___
 
 
-FEATURE SELECTION
+# <a name="description"></a>Project Description
+[[Back to top](#top)]
+The Superstore Time Series Analysis project aims to build a predictive model for the company's overall sales volume over the next quarter of operation using time-series analysis. The data used for this project was acquired from Kaggle.com and contains information on sales transactions in the Superstore. The goal of this project is to develop a reliable forecasting model that can help the company make informed decisions and plan for future sales.
 
-Run a pairplot
+## <a name="goals"></a>Project Planning
+[[Back to top](#top)]
+The main goals of this project are as follows:
+- Explore and understand the dataset, identifying key patterns and trends.
+- Perform time-series analysis to uncover seasonality and autocorrelation in the sales data.
+- Develop a predictive model that outperforms the baseline (Rolling Average model) in forecasting sales revenue.
+- Assess the impact of different features on sales volume and identify the most relevant predictors.
+- Provide actionable insights and recommendations based on the findings.
 
-Graph categorical columns with bar charts to show the percentage of revenue they bring in.
+# <a name="hypotheses"></a>Hypotheses
+[[Back to top](#top)]
+1. The sales data will exhibit strong seasonality patterns due to the influence of different time periods and holidays.
+2. The lagged sales data with a period of 53 weeks will have a significant correlation with the target variable.
+3. The Holt's Linear model will outperform the Rolling Average model in forecasting sales revenue.
 
-How does monthly time relate to the target?
- 
-Do more items of a given product id sell when they have a discount?
+# <a name="deliverables"></a>Deliverables
+[[Back to top](#top)]
+- Jupyter Notebook containing the entire data analysis process, including data exploration, statistical analysis, and model building.
+- Trained Holt's Linear model and the baseline Rolling Average model.
+- Data dictionary describing the features and their meanings.
+- README file with project overview and findings.
 
-What are the most profitable regions?
+# <a name="findings"></a>Key Findings
+[[Back to top](#top)]
+- The south region produces about half as many sales as the west region.
+- California, New York, Texas, and Washington are the highest selling states.
+- Consumer category generates more sales than corporate and home office.
+- Weekly sampled sales data displays clear seasonality and autocorrelation at  53 weeks of lag.
+- Holt's Linear model outperforms the Rolling Average model with a period of 47 weeks by 11% in RMSE.
 
-Are certain product categories more profitable at certain times of the year?
+# <a name="plan"></a>The Plan
+[[Back to top](#top)]
+1. Data Acquisition and Preparation: Load the dataset from Kaggle.com using pandas, perform data cleaning, and handle any missing or inconsistent values.
+2. Data Exploration: Explore the dataset to gain insights into sales patterns, identify outliers, and assess the relationships between different variables.
+3. Statistical Analysis: Conduct autocorrelation and seasonality analysis to identify lag periods and patterns in the data.
+4. Modeling: Build and train the Holt's Linear model to forecast sales volume and compare its performance with the Rolling Average model.
+5. Evaluation: Evaluate the models' performance using appropriate metrics and validate their effectiveness in predicting sales revenue.
+6. Interpretation: Interpret the model results, identify significant features, and draw actionable conclusions for the company.
+7. Recommendations: Provide recommendations based on the analysis to help the company improve sales strategies and optimize revenue.
+
+## <a name="dictionary"></a>Data Dictionary
+[[Back to top](#top)]
+| Feature           | Description                                             |
+|-------------------|---------------------------------------------------------|
+| Order ID     | Unique identifier for each order placed in the Superstore.   |
+| Order Date  | Date when the order was placed.                 |
+| Ship Date       | Date when the order was shipped.         |
+| Ship Mode    | Shipping method for the order (e.g., Standard Class, Second Class, etc.) |
+| Customer ID         | Unique identifier for each customer in the Superstore.  |
+| Customer Name |     Name of the customer who placed the order. |
+| Segment | Segment of customers based on their purchasing behavior (e.g., Corporate, Consumer, Home Office). |
+| Country           | Country where the order was shipped.                      |
+| City                | City where the order was shipped.     |
+| State         | State where the order was shipped. |
+| Postal Code           | Postal code of the shipping location.         |
+| Region          | Geographical region where the order was shipped (e.g., West, East, South, Central). |
+| Product ID           | Unique identifier for each product in the Superstore.|
+| Category       | Category of the product (e.g., Furniture, Office Supplies, Technology).     |
+| Sub-Category   | Sub-category of the product (e.g., Chairs, Paper, Phones). |
+| Product Name           | Name of the product.         |
+| Sales              | Total sales revenue generated by the order.               |
+| Quantity           | Quantity of each product purchased in the order.       |
+| Discount           | Discount applied to the order.        |
+| Profit           | Profit earned from the order (Sales - Cost).         |
 
 
-FEATURE ENGINEERING
+(Shape: 9994 rows x 20 columns)
 
-What new rows could I introduce?
-- average order frequency, a grouping by customer id and averaging out how many days in between their orders
+# <a name="wrangle"></a>Data Acquisition and Prep
+[[Back to top](#top)]
+Data acquired from kaggle ('https://www.kaggle.com/datasets/vivek468/superstore-dataset-final')
 
-Are there clusters in the data?
-- bivariate graphs
-- threedee feature shifting
-
-Do any columns need to be scaled?
-
-Check for multicolinearity
-
-
-############## MODELING ###############
-
-What could I predict with this data set?
-- overall profits next year (time series or regression)
-- profits within a particular region
+To handle nulls, the following values were imputed into the following dates:
+2014-03-18 <= 7,000
+2016-10-02 <= 11,000
+2017-10-22 <= 14,000
+2017-03-23 <= 6,000
+2014-09-08 <= 10,000
 
 
+# <a name="exploration"></a>Data Exploration
+[[Back to top](#top)]
 
-MVP steps
+## General Explore Summary: 
+- The south region produces about half as many sales as the west region
+- the highest selling states are California (330k), New York (200k), Texas (110k), and Washington (100k)
+- the consumer category produces many more sales (800,000) than corporate (500,000), which produces more than home office (300,000)
+- Each category produces a similar amount of sales
+
+#### Additional Notes:
+- During feature engineering dummy columns of category, region, and segment were created and aggregated by mean over a weekly and monthly timescale then evaluated for correlation with sales. It was determined that none of these aggregations correlated with the sales volume
+
+## Time explore summary:
+#### Autocorrelation
+- Weekly sampled sales data displays reasonably strong autocorrelation at around 52 weeks of lag (R ~.5)
+- Using the peak around 105 weeks of lag may add predictive value to a model, however so much data would have to be dropped to handle the resulting nulls that this wouldn't be feasible without anouther few years of data
+#### Seasonality
+- Weekly sampled sales data displays clear seasonality
+#### Lag
+- A lag of 53 weeks produces the highest correlation to the target and is statistically valid (R = .49, P-value = 2.63e-08
+
+
+
+# <a name="stats"></a>Statistical Analysis
+[[Back to top](#top)]
+- A lag of 53 weeks produces the highest correlation to the target and is statistically valid (R = .49, P-value = 2.63e-08)
+
+
+# <a name="model"></a>Modeling
+[[Back to top](#top)]
+## Modeling summary:
+- When evaluated on validate data, Holt's Linear model outperformed the Rolling Average model with a period of 47 days by 283 sales, or 6%
+- When evaluated on test data, Holt's Linear model outperformed the Rolling Average model with a period of 47 days by 1027 dollars in rmse, or 11%
+
+
+
+# <a name="reproducuction"></a>Steps to Reproduce
+[[Back to top](#top)]
+To reproduce the results of this project, follow these steps:
+1. Download the dataset from Kaggle.com (provide link in the README).
+2. Run the Jupyter Notebook and follow the step-by-step instructions for data exploration, statistical analysis, and model building.
+
+
+
+# <a name="conclusions"></a>Takeaways and Conclusions
+[[Back to top](#top)]
+- The Superstore's sales data exhibits significant seasonality and autocorrelation patterns.
+- The Holt's Linear model provides more accurate sales forecasts compared to the baseline Rolling Average model.
+- Seasonal effects and time lags play a crucial role in predicting future sales.
+- The company can utilize the forecasting model to plan inventory, marketing campaigns, and resource allocation efficiently.
+
+
+
+# <a name="recommendations"></a>Recommendations
+[[Back to top](#top)]
+Based on the analysis, the following recommendations are suggested:
+- The company should pay attention to seasonal trends and plan promotions accordingly to capitalize on peak demand periods.
+- Targeted marketing strategies can be implemented based on regional sales performance.
+
+
+# <a name="next_steps"></a>Next Steps
+[[Back to top](#top)]
+To enhance the model and gain more accurate predictions, the following steps can be taken:
+- Collect more historical sales data to expand the forecasting horizon.
+- Incorporate external factors like economic indicators, advertising expenditure, and competitor's performance to improve predictive power.
+- Experiment with other time series models, such as ARIMA or Prophet, to identify the best fit for the data.
+
+
+
+
+
