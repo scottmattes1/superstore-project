@@ -4,13 +4,38 @@ import sys
 from sklearn.model_selection import train_test_split
 
 
-home_directory_path = os.path.expanduser('~')
-sys.path.append(home_directory_path +'/utils')
-
-import wrangle_utils as w
-import explore_utils as e
-import model_utils as m
 import env
+
+################## NORMALIZE COLUMN NAMES FUNCTION ###################
+
+def normalize_column_names(df):
+    """
+    Takes in a dataframe and iterates through the columns, puts them in a lower case, and replaces separating characters and whitespace with an underscore. Returns the dataframe with the normalized column names
+    """
+    for col in df.columns:
+        new_col = col.strip().lower()  # Clean and standardize the column name
+        for char in [' ', '.', '-', ',', '+']:
+            new_col = new_col.replace(char, '_')  # Replace specific characters with underscores
+        df = df.rename(columns={col: new_col})  # Rename the column with the cleaned and standardized name
+    return df
+
+
+########################## DATE SET INDEX FUNCTION #########################
+    
+def date_set_index(df, col):
+    """
+    Renames the date column to 'date' and sets it as the index of the dataframe. Returns the updated dataframe.
+    """
+    # Rename the designated columns 'date'
+    df = df.rename(columns={col: 'date'})
+    
+    # Casts the date column to datetime
+    df['date'] = pd.to_datetime(df['date'])
+    
+    # Set the date as the index
+    df = df.set_index('date')
+
+    return df
 
 
 ####################### ACQUIRE SUPERSTORE FUNCTION ##################
@@ -32,9 +57,9 @@ def prep_superstore(df):
     """
     Takes in the acquired dataframe, normalizes the column names, keeps the most useful columns, sets the order date as the time index, sorts the index, and outputs the prepared dataframe
     """
-    df = w.normalize_column_names(df)
+    df = normalize_column_names(df)
     df = df[['customer_id', 'order_date', 'segment', 'state', 'region', 'product_id', 'category', 'sales', 'quantity', 'discount', 'profit']]
-    df = w.date_set_index(df, 'order_date')
+    df = date_set_index(df, 'order_date')
     df = df.sort_index()
     df.loc[pd.to_datetime('2014-03-18')][0] = 7_000
     df.loc[pd.to_datetime('2016-10-02')][0] = 11_000
@@ -73,6 +98,6 @@ def make_dummy_columns(df):
     region = pd.get_dummies(df.region, drop_first=True)
 
     dummies = pd.concat([category, region, segment], axis=1)
-    dummies = w.normalize_column_names(dummies)
+    dummies = normalize_column_names(dummies)
     
     return dummies

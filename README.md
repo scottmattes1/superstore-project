@@ -25,7 +25,7 @@ ___
 
 # <a name="description"></a>Project Description
 [[Back to top](#top)]
-The Predcting Superstore Revenue project aims to build a predictive model for the company's overall sales volume over the next quarter using time-series analysis. The data used for this project was acquired from Kaggle.com and contains information on nationwide sales transactions at Superstore. The goal of this project is to develop a reliable forecasting model that can help the company make informed decisions and plan for future sales.
+The Predcting Superstore Revenue project aims to build a predictive model for the company's overall sales volume over the next quarter using time-series analysis. While this data is synthetic, it was made by the authors to mimick real world revenue behavior. The data used for this project was acquired from Kaggle.com and contains information on nationwide sales transactions at Superstore. The goal of this project is to develop a reliable forecasting model that can help the company make informed decisions and plan for future sales.
 
 ## <a name="goals"></a>Project Planning
 [[Back to top](#top)]
@@ -60,7 +60,7 @@ A repository containing:
 1. Data Acquisition and Preparation: Load the dataset from Kaggle.com using pandas, perform data cleaning, and handle any missing or inconsistent values.
 2. Data Exploration: Explore the dataset to gain insights into sales patterns, identify outliers, and assess the relationships between different variables.
 3. Statistical Analysis: Conduct autocorrelation and seasonality analysis to identify lag periods and patterns in the data.
-4. Modeling: Fit and evaluate a Holt's Linear, Holt's seasonal, and ...... to forecast sales volume and compare its performance with the Rolling Average model.
+4. Modeling: Fit and evaluate a Holt's Linear, Holt's seasonal, and a Linear Regression model to forecast sales volume and compare their performance with the Rolling Average baseline model.
 5. Evaluation: Evaluate the models' performance using appropriate metrics and validate their effectiveness in predicting sales revenue.
 6. Interpretation: Interpret the model results, identify significant features, and draw actionable conclusions for the company.
 7. Recommendations: Provide recommendations based on the analysis to help the company improve sales strategies and optimize revenue.
