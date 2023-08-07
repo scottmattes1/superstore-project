@@ -25,44 +25,42 @@ ___
 
 # <a name="description"></a>Project Description
 [[Back to top](#top)]
-The Superstore Time Series Analysis project aims to build a predictive model for the company's overall sales volume over the next quarter of operation using time-series analysis. The data used for this project was acquired from Kaggle.com and contains information on sales transactions in the Superstore. The goal of this project is to develop a reliable forecasting model that can help the company make informed decisions and plan for future sales.
+The Predcting Superstore Revenue project aims to build a predictive model for the company's overall sales volume over the next quarter using time-series analysis. The data used for this project was acquired from Kaggle.com and contains information on nationwide sales transactions at Superstore. The goal of this project is to develop a reliable forecasting model that can help the company make informed decisions and plan for future sales.
 
 ## <a name="goals"></a>Project Planning
 [[Back to top](#top)]
 The main goals of this project are as follows:
 - Explore and understand the dataset, identifying key patterns and trends.
 - Perform time-series analysis to uncover seasonality and autocorrelation in the sales data.
-- Develop a predictive model that outperforms the baseline (Rolling Average model) in forecasting sales revenue.
+- Develop a predictive model that outperforms the baseline (47-week Rolling Average model) in forecasting sales revenue.
 - Assess the impact of different features on sales volume and identify the most relevant predictors.
 - Provide actionable insights and recommendations based on the findings.
 
 # <a name="hypotheses"></a>Hypotheses
 [[Back to top](#top)]
-1. The sales data will exhibit strong seasonality patterns due to the influence of different time periods and holidays.
-2. The lagged sales data with a period of 53 weeks will have a significant correlation with the target variable.
-3. The Holt's Linear model will outperform the Rolling Average model in forecasting sales revenue.
+1. The sales data will exhibit strong seasonality patterns due to the behavior of the marketat different time periods.
+2. This seasonality will lend predictive power which will allow a time-series model to outperform baseline predictions.
 
-# <a name="deliverables"></a>Deliverables
+# <a name="deliverables"></a>Expected Deliverables
 [[Back to top](#top)]
+A repository containing:
 - Jupyter Notebook containing the entire data analysis process, including data exploration, statistical analysis, and model building.
-- Trained Holt's Linear model and the baseline Rolling Average model.
-- Data dictionary describing the features and their meanings.
-- README file with project overview and findings.
+- A trained time-series model.
 
 # <a name="findings"></a>Key Findings
 [[Back to top](#top)]
 - The south region produces about half as many sales as the west region.
 - California, New York, Texas, and Washington are the highest selling states.
-- Consumer category generates more sales than corporate and home office.
-- Weekly sampled sales data displays clear seasonality and autocorrelation at  53 weeks of lag.
-- Holt's Linear model outperforms the Rolling Average model with a period of 47 weeks by 11% in RMSE.
+- The 'consumer' category generates more sales than corporate and home office.
+- Weekly sampled sales data displays clear seasonality and autocorrelation at 53 weeks of lag.
+- Holt's Linear model outperforms the Rolling Average model (with a period of 47 weeks) by 11% RMSE.
 
 # <a name="plan"></a>The Plan
 [[Back to top](#top)]
 1. Data Acquisition and Preparation: Load the dataset from Kaggle.com using pandas, perform data cleaning, and handle any missing or inconsistent values.
 2. Data Exploration: Explore the dataset to gain insights into sales patterns, identify outliers, and assess the relationships between different variables.
 3. Statistical Analysis: Conduct autocorrelation and seasonality analysis to identify lag periods and patterns in the data.
-4. Modeling: Build and train the Holt's Linear model to forecast sales volume and compare its performance with the Rolling Average model.
+4. Modeling: Fit and evaluate a Holt's Linear, Holt's seasonal, and ...... to forecast sales volume and compare its performance with the Rolling Average model.
 5. Evaluation: Evaluate the models' performance using appropriate metrics and validate their effectiveness in predicting sales revenue.
 6. Interpretation: Interpret the model results, identify significant features, and draw actionable conclusions for the company.
 7. Recommendations: Provide recommendations based on the analysis to help the company improve sales strategies and optimize revenue.
@@ -111,9 +109,10 @@ To handle nulls, the following values were imputed into the following dates:
 [[Back to top](#top)]
 
 ## General Explore Summary: 
+Inside the train data:
 - The south region produces about half as many sales as the west region
 - the highest selling states are California (330k), New York (200k), Texas (110k), and Washington (100k)
-- the consumer category produces many more sales (800,000) than corporate (500,000), which produces more than home office (300,000)
+- the consumer category produces many more sales (800k) than corporate (500k), which produces more than home office (300k)
 - Each category produces a similar amount of sales
 
 #### Additional Notes:
@@ -129,7 +128,6 @@ To handle nulls, the following values were imputed into the following dates:
 - A lag of 53 weeks produces the highest correlation to the target and is statistically valid (R = .49, P-value = 2.63e-08
 
 
-
 # <a name="stats"></a>Statistical Analysis
 [[Back to top](#top)]
 - A lag of 53 weeks produces the highest correlation to the target and is statistically valid (R = .49, P-value = 2.63e-08)
@@ -137,10 +135,8 @@ To handle nulls, the following values were imputed into the following dates:
 
 # <a name="model"></a>Modeling
 [[Back to top](#top)]
-## Modeling summary:
 - When evaluated on validate data, Holt's Linear model outperformed the Rolling Average model with a period of 47 days by 283 sales, or 6%
 - When evaluated on test data, Holt's Linear model outperformed the Rolling Average model with a period of 47 days by 1027 dollars in rmse, or 11%
-
 
 
 # <a name="reproducuction"></a>Steps to Reproduce
@@ -150,14 +146,12 @@ To reproduce the results of this project, follow these steps:
 2. Run the Jupyter Notebook and follow the step-by-step instructions for data exploration, statistical analysis, and model building.
 
 
-
 # <a name="conclusions"></a>Takeaways and Conclusions
 [[Back to top](#top)]
 - The Superstore's sales data exhibits significant seasonality and autocorrelation patterns.
 - The Holt's Linear model provides more accurate sales forecasts compared to the baseline Rolling Average model.
 - Seasonal effects and time lags play a crucial role in predicting future sales.
 - The company can utilize the forecasting model to plan inventory, marketing campaigns, and resource allocation efficiently.
-
 
 
 # <a name="recommendations"></a>Recommendations
@@ -173,7 +167,7 @@ To enhance the model and gain more accurate predictions, the following steps can
 - Collect more historical sales data to expand the forecasting horizon.
 - Incorporate external factors like economic indicators, advertising expenditure, and competitor's performance to improve predictive power.
 - Experiment with other time series models, such as ARIMA or Prophet, to identify the best fit for the data.
-
+- Build models specific to the most developed markets (i.e. New York, California, Texas, and Washington). It is suspected that since these markets are more developed and produce higher volume that their sales over time will lead to clearer seasonality trends and even more accurate models
 
 
 
