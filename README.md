@@ -142,8 +142,10 @@ Inside the train data:
 # <a name="reproducuction"></a>Steps to Reproduce
 [[Back to top](#top)]
 To reproduce the results of this project, follow these steps:
-1. Download the dataset from Kaggle.com (provide link in the README).
-2. Run the Jupyter Notebook and follow the step-by-step instructions for data exploration, statistical analysis, and model building.
+1. Download the dataset from Kaggle.com (https://www.kaggle.com/datasets/vivek468/superstore-dataset-final).
+2. Unzip the file in your 'Downloads' folder
+3. Rename the file 'superstore.csv'
+4. Run the 'final_report' Jupyter Notebook and follow the step-by-step instructions for data exploration, statistical analysis, and model building.
 
 
 # <a name="conclusions"></a>Takeaways and Conclusions
