@@ -30,7 +30,7 @@ The Predcting Superstore Revenue project aims to build a predictive model for th
 
 A slide deck presentation of this project can be found here: https://www.canva.com/design/DAFqhactfsM/v2jvdfK6jTAwm_egV-SK_Q/edit?utm_content=DAFqhactfsM&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
 
-## <a name="goals"></a>Project Planning
+# <a name="goals"></a>Project Planning
 [[Back to top](#top)]
 
 The main goals of this project are as follows:
