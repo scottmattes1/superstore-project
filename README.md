@@ -73,7 +73,7 @@ A repository containing:
 6. Interpretation: Interpret the model results, identify significant features, and draw actionable conclusions for the company.
 7. Recommendations: Provide recommendations based on the analysis to help the company improve sales strategies and optimize revenue.
 
-## <a name="dictionary"></a>Data Dictionary
+# <a name="dictionary"></a>Data Dictionary
 [[Back to top](#top)]
 
 | Feature           | Description                                             |
