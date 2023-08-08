@@ -114,7 +114,11 @@ To handle nulls, the following values were imputed into the following dates:
 - 2017-03-23 <= 6,000
 - 2014-09-08 <= 10,000
 
+The following 11 columns were kept from the original dataframe: 'customer_id', 'order_date', 'segment', 'state', 'region', 'product_id', 'category', 'sales', 'quantity', 'discount', and 'profit'
+
 The data was split 80/10/10 for time-series analysis to train the model
+
+Note: no duplicates were found in this dataset
 
 
 # <a name="exploration"></a>Data Exploration
