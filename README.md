@@ -116,6 +116,8 @@ To handle nulls, the following values were imputed into the following dates:
 
 The following 11 columns were kept from the original dataframe: 'customer_id', 'order_date', 'segment', 'state', 'region', 'product_id', 'category', 'sales', 'quantity', 'discount', and 'profit'
 
+The order_date column was set as the time index
+
 The data was split 80/10/10 for time-series analysis to train the model
 
 Note: no duplicates were found in this dataset
