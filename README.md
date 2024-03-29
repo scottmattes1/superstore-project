@@ -107,7 +107,7 @@ A repository containing:
 
 Data acquired from kaggle ('https://www.kaggle.com/datasets/vivek468/superstore-dataset-final')
 
-To handle nulls, the following values were imputed into the following dates:
+To handle outliers, the following values were imputed into the following dates:
 - 2014-03-18 <= 7,000
 - 2016-10-02 <= 11,000
 - 2017-10-22 <= 14,000
